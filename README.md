@@ -1,4 +1,4 @@
-Thorr\Persistence
+Thorr\OAuth2\CLI
 ===
 
 [![Latest Stable Version](https://poser.pugx.org/stefanotorresi/thorr-oauth2-cli/v/stable.png)](https://packagist.org/packages/stefanotorresi/thorr-oauth2-cli)
