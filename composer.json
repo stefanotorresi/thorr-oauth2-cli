@@ -1,0 +1,36 @@
+{
+    "name": "stefanotorresi/thorr-oauth2-cli",
+    "description": "ZF2 CLI module for Thorr\\OAuth2",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "preferred-install": "dist"
+    },
+    "authors": [
+        {
+            "name": "Stefano Torresi",
+            "email": "webdev@stefanotorresi.it"
+        }
+    ],
+    "require": {
+        "php": "~5.5",
+        "stefanotorresi/thorr-oauth2": "~0.0@dev",
+        "zendframework/zend-console": "~2.3",
+        "zendframework/zend-mvc": "~2.3",
+        "zendframework/zend-modulemanager": "~2.3"
+    },
+    "autoload" : {
+        "classmap": [
+            "Module.php"
+        ],
+        "psr-4": {
+            "Thorr\\OAuth2\\CLI\\": "src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4": {
+            "Thorr\\OAuth2\\CLI\\Test\\": "tests/"
+        }
+    }
+}
