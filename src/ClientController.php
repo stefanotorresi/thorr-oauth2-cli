@@ -30,7 +30,7 @@ class ClientController extends AbstractConsoleController
 
     /**
      * @param DataMapperInterface $clientMapper
-     * @param PasswordInterface $password
+     * @param PasswordInterface   $password
      */
     public function __construct(DataMapperInterface $clientMapper, PasswordInterface $password)
     {
@@ -57,7 +57,7 @@ class ClientController extends AbstractConsoleController
 
         if ($grantTypes) {
             $grantTypes = explode(',', $grantTypes);
-            array_walk($grantTypes, function(&$grant) {
+            array_walk($grantTypes, function (&$grant) {
                 $grant = trim($grant);
             });
         }

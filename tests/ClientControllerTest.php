@@ -40,7 +40,7 @@ class ClientControllerTest extends TestCase
         $password = $this->getMock(PasswordInterface::class);
         $password->expects($this->any())
             ->method('create')
-            ->willReturnCallback(function($arg) {
+            ->willReturnCallback(function ($arg) {
                 return $arg;
             });
 
@@ -58,7 +58,7 @@ class ClientControllerTest extends TestCase
 
         $this->clientMapper->expects($this->once())
             ->method('save')
-            ->with($this->callback(function($client) {
+            ->with($this->callback(function ($client) {
 
                 $this->assertInstanceOf(Client::class, $client);
                 /** @var Client $client */
