@@ -20,6 +20,11 @@
         "zendframework/zend-mvc": "~2.3",
         "zendframework/zend-modulemanager": "~2.3"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
+    },
     "autoload" : {
         "classmap": [
             "Module.php"
