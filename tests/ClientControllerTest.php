@@ -15,7 +15,6 @@ use Thorr\OAuth2\Entity\Client;
 use Thorr\Persistence\DataMapper\DataMapperInterface;
 use \Zend\Console\Adapter as ConsoleAdapter;
 use Zend\Console\Prompt\PromptInterface;
-use Zend\Console\Request;
 use Zend\Crypt\Password\PasswordInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\Console\RouteMatch;
@@ -70,7 +69,6 @@ class ClientControllerTest extends TestCase
         ];
 
         $this->mvcEvent = new MvcEvent();
-        $this->mvcEvent->setRequest(new Request());
         $this->mvcEvent->setRouteMatch(new RouteMatch([]));
 
         $this->consoleMock = $this->getMock(ConsoleAdapter\AbstractAdapter::class, ['write']);
@@ -116,7 +114,7 @@ class ClientControllerTest extends TestCase
                 ->willReturn($promptValue);
         }
 
-        $this->controller->dispatch($this->mvcEvent->getRequest());
+        $this->controller->createAction();
 
         $this->assertSame($expectedValue['public'], empty($client->getSecret()));
         $this->assertSame($expectedValue['public'], $client->isPublic());
@@ -229,6 +227,8 @@ class ClientControllerTest extends TestCase
             ->method('removeByUuid')
             ->with('foo');
 
-        $this->controller->dispatch($this->mvcEvent->getRequest());
+        $this->controller->deleteAction();
+
+        $this->assertContains('Client removed', $this->output);
     }
 }
