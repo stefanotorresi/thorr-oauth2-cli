@@ -10,6 +10,7 @@ namespace Thorr\OAuth2\CLI\Test;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use ReflectionProperty;
 use Thorr\OAuth2\CLI\ClientController;
 use Thorr\OAuth2\Entity\Client;
 use Thorr\Persistence\DataMapper\DataMapperInterface;
@@ -80,20 +81,13 @@ class ClientControllerTest extends TestCase
                 $this->output .= $text;
         });
 
-        $this->controller = new ClientController($this->clientMapper, $password, $this->prompts);
+        $this->controller = new ClientController($this->clientMapper, $password);
         $this->controller->setEvent($this->mvcEvent);
         $this->controller->setConsole($this->consoleMock);
-    }
 
-    public function testPromptInjectionInvalidArgumentException()
-    {
-        $this->setExpectedException(InvalidArgumentException::class, 'Invalid prompt type');
-
-        $ctrl = new ClientController(
-            $this->getMock(DataMapperInterface::class),
-            $this->getMock(PasswordInterface::class),
-            [ 'public' => 'foo' ]
-        );
+        $refl = new ReflectionProperty($this->controller, 'prompts');
+        $refl->setAccessible(true);
+        $refl->setValue($this->controller, $this->prompts);
     }
 
     /**

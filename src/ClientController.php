@@ -37,30 +37,19 @@ class ClientController extends AbstractConsoleController
     /**
      * @param DataMapperInterface $clientMapper
      * @param PasswordInterface $password
-     * @param array $prompts
      */
-    public function __construct(DataMapperInterface $clientMapper, PasswordInterface $password, array $prompts = [])
+    public function __construct(DataMapperInterface $clientMapper, PasswordInterface $password)
     {
         $this->clientMapper = $clientMapper;
         $this->password = $password;
 
+        // store the prompts in a protected array to allow mocking
         $this->prompts = [
             'public'       => new Prompt\Confirm('Is the client public?'),
             'description'  => new Prompt\Line('Please enter a client description: []', true, 255),
             'grant-types'  => new Prompt\Line('Please enter a comma separated list of client grant types (leave empty to allow any): []', true, 255),
             'redirect-uri' => new Prompt\Line('Please enter a redirect URI: []', true, 2000),
         ];
-
-        foreach ($prompts as $key => $prompt) {
-            if (! $prompt instanceof Prompt\PromptInterface) {
-                throw new InvalidArgumentException(sprintf(
-                    "Invalid prompt type: got '%s', expected '%s'",
-                    is_object($prompt) ? get_class($prompt) : gettype($prompt),
-                    Prompt\PromptInterface::class
-                ));
-            }
-            $this->prompts[$key] = $prompt;
-        }
     }
 
     /**
@@ -68,10 +57,10 @@ class ClientController extends AbstractConsoleController
      */
     public function createAction()
     {
-        $isPublic    = (bool) ($this->params('public') ?: $this->getPrompt('public')->show());
-        $description = $this->params('description') ?: $this->getPrompt('description')->show();
-        $grantTypes  = $this->params('grant-types') ?: $this->getPrompt('grant-types')->show();
-        $redirectUri = $this->params('redirect-uri') ?: $this->getPrompt('redirect-uri')->show();
+        $isPublic    = (bool) ($this->params('public') ?: $this->showPrompt('public'));
+        $description = $this->params('description') ?: $this->showPrompt('description');
+        $grantTypes  = $this->params('grant-types') ?: $this->showPrompt('grant-types');
+        $redirectUri = $this->params('redirect-uri') ?: $this->showPrompt('redirect-uri');
 
         $secret = null;
         $encryptedSecret = null;
@@ -121,10 +110,10 @@ class ClientController extends AbstractConsoleController
 
     /**
      * @param string $key
-     * @return Prompt\PromptInterface
+     * @return mixed
      */
-    protected function getPrompt($key)
+    protected function showPrompt($key)
     {
-        return $this->prompts[$key];
+        return $this->prompts[$key]->show();
     }
 }
