@@ -7,7 +7,6 @@
 
 namespace Thorr\OAuth2\CLI;
 
-use Rhumsaa\Uuid\Uuid;
 use Thorr\OAuth2\Entity\Client;
 use Thorr\Persistence\DataMapper\DataMapperInterface;
 use Zend\Console\Prompt;
