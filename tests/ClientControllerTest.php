@@ -7,7 +7,6 @@
 
 namespace Thorr\OAuth2\CLI\Test;
 
-use InvalidArgumentException;
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use ReflectionProperty;
@@ -107,6 +106,7 @@ class ClientControllerTest extends TestCase
             ->method('save')
             ->with($this->callback(function (Client $createdDlient) use (&$client) {
                 $client = $createdDlient;
+
                 return true;
             }));
 
@@ -121,7 +121,7 @@ class ClientControllerTest extends TestCase
         $this->assertSame($expectedValue['public'], empty($client->getSecret()));
         $this->assertSame($expectedValue['public'], $client->isPublic());
         $this->assertEquals($expectedValue['description'], $client->getDescription());
-        $this->assertEquals($expectedValue['grant-types'], implode(',',$client->getGrantTypes()));
+        $this->assertEquals($expectedValue['grant-types'], implode(',', $client->getGrantTypes()));
         $this->assertEquals($expectedValue['redirect-uri'], $client->getRedirectUri());
 
         $this->assertContains('Client created', $this->output);
@@ -130,7 +130,7 @@ class ClientControllerTest extends TestCase
         }
         $this->assertContains("UUID: \t\t".$client->getUuid()->toString(), $this->output);
         $this->assertContains("Description: \t".$client->getDescription(), $this->output);
-        $this->assertContains("Grant types: \t".implode(',',$client->getGrantTypes()), $this->output);
+        $this->assertContains("Grant types: \t".implode(',', $client->getGrantTypes()), $this->output);
         $this->assertContains("Redirect URI: \t".$client->getRedirectUri(), $this->output);
     }
 

@@ -7,7 +7,6 @@
 
 namespace Thorr\OAuth2\CLI;
 
-use InvalidArgumentException;
 use Rhumsaa\Uuid\Uuid;
 use Thorr\OAuth2\Entity\Client;
 use Thorr\Persistence\DataMapper\DataMapperInterface;
@@ -36,7 +35,7 @@ class ClientController extends AbstractConsoleController
 
     /**
      * @param DataMapperInterface $clientMapper
-     * @param PasswordInterface $password
+     * @param PasswordInterface   $password
      */
     public function __construct(DataMapperInterface $clientMapper, PasswordInterface $password)
     {
@@ -90,7 +89,7 @@ class ClientController extends AbstractConsoleController
         }
         $this->getConsole()->writeLine("UUID: \t\t".$client->getUuid());
         if (! $isPublic) {
-            $this->getConsole()->writeLine("Secret: \t" . $secret);
+            $this->getConsole()->writeLine("Secret: \t".$secret);
         }
         $this->getConsole()->writeLine("Grant types: \t".implode(', ', $client->getGrantTypes()));
         $this->getConsole()->writeLine("Description: \t".$client->getDescription());
@@ -109,7 +108,7 @@ class ClientController extends AbstractConsoleController
     }
 
     /**
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     protected function showPrompt($key)
