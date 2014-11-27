@@ -30,7 +30,7 @@ class Module implements
                     'routes' => [
                         'client-create' => [
                             'options' => [
-                                'route' => 'client create [--description=] [--grant-types=]',
+                                'route' => 'client create [--public] [--description=] [--grant-types=] [--redirect-uri=]',
                                 'defaults' => [
                                     'controller' => ClientController::class,
                                     'action' => 'create',
@@ -58,8 +58,8 @@ class Module implements
     public function getConsoleUsage(AdapterInterface $console)
     {
         return [
-            'client create [--description=] [--grant-types=]' => 'Create a new OAuth2 client',
-            'client delete <uuid>'                            => 'Delete an OAuth2 client',
+            'client create [--public] [--description=] [--grant-types=] [--redirect-uri=]' => 'Create a new OAuth2 client',
+            'client delete <uuid>' => 'Delete an OAuth2 client',
         ];
     }
 

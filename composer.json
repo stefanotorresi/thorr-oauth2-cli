@@ -18,7 +18,8 @@
         "stefanotorresi/thorr-oauth2": "~0.0@dev",
         "zendframework/zend-console": "~2.3",
         "zendframework/zend-mvc": "~2.3",
-        "zendframework/zend-modulemanager": "~2.3"
+        "zendframework/zend-modulemanager": "~2.3",
+        "zendframework/zend-view": "~2.3"
     },
     "extra": {
         "branch-alias": {
