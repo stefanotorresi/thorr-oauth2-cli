@@ -12,12 +12,12 @@ use Thorr\Persistence\DataMapper\Manager\DataMapperManager;
 use Zend\Console\Adapter\AdapterInterface;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\ModuleManager\Feature;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Mvc\Controller\ControllerManager;
 
 class Module implements
     Feature\ConfigProviderInterface,
     Feature\ConsoleUsageProviderInterface,
-    Feature\ServiceProviderInterface
+    Feature\ControllerProviderInterface
 {
     /**
      * {@inheritdoc}
@@ -30,7 +30,7 @@ class Module implements
                     'routes' => [
                         'client-create' => [
                             'options' => [
-                                'route' => 'client create [--public] [--description=] [--grant-types=] [--redirect-uri=]',
+                                'route' => 'oauth2 create client [--public] [--description=] [--grant-types=] [--redirect-uri=]',
                                 'defaults' => [
                                     'controller' => ClientController::class,
                                     'action' => 'create',
@@ -39,7 +39,7 @@ class Module implements
                         ],
                         'client-delete' => [
                             'options' => [
-                                'route' => 'client delete <uuid>',
+                                'route' => 'oauth2 delete client <uuid>',
                                 'defaults' => [
                                     'controller' => ClientController::class,
                                     'action' => 'delete',
@@ -58,23 +58,26 @@ class Module implements
     public function getConsoleUsage(AdapterInterface $console)
     {
         return [
-            'client create [--public] [--description=] [--grant-types=] [--redirect-uri=]' => 'Create a new OAuth2 client',
-            'client delete <uuid>' => 'Delete an OAuth2 client',
+            'oauth2 create client [--public] [--description=] [--grant-types=] [--redirect-uri=]' => 'Create a new OAuth2 client',
+            'oauth2 delete client <uuid>' => 'Delete an OAuth2 client',
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getServiceConfig()
+    public function getControllerConfig()
     {
         return [
             'factories' => [
-                ClientController::class => function (ServiceLocatorInterface $serviceLocator) {
+                ClientController::class => function (ControllerManager $controllerManager) {
+                    $serviceManager = $controllerManager->getServiceLocator();
+
                     /** @var DataMapperManager $dmm */
-                    $dmm = $serviceLocator->get(DataMapperManager::class);
+                    $dmm = $serviceManager->get(DataMapperManager::class);
+
                     /** @var OAuth2\Options\ModuleOptions $oauth2Options */
-                    $oauth2Options = $serviceLocator->get(OAuth2\Options\ModuleOptions::class);
+                    $oauth2Options = $serviceManager->get(OAuth2\Options\ModuleOptions::class);
 
                     $clientMapper = $dmm->getDataMapperForEntity(OAuth2\Entity\Client::class);
                     $password = new Bcrypt(['cost' => $oauth2Options->getBcryptCost()]);
