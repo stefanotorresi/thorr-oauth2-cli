@@ -7,13 +7,13 @@
 
 namespace Thorr\OAuth2\CLI\Test;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionProperty;
 use Thorr\OAuth2\CLI\ClientController;
 use Thorr\OAuth2\Entity\Client;
 use Thorr\Persistence\DataMapper\DataMapperInterface;
-use \Zend\Console\Adapter as ConsoleAdapter;
+use Zend\Console\Adapter as ConsoleAdapter;
 use Zend\Console\Prompt\PromptInterface;
 use Zend\Crypt\Password\PasswordInterface;
 use Zend\Mvc\MvcEvent;
@@ -54,7 +54,7 @@ class ClientControllerTest extends TestCase
     public function setUp()
     {
         $this->clientMapper = $this->getMock(DataMapperInterface::class);
-        $password = $this->getMock(PasswordInterface::class);
+        $password           = $this->getMock(PasswordInterface::class);
         $password->expects($this->any())
             ->method('create')
             ->willReturnCallback(function ($arg) {
@@ -124,12 +124,12 @@ class ClientControllerTest extends TestCase
 
         $this->assertContains('Client created', $this->output);
         if (! $expectedValue['public']) {
-            $this->assertContains("Secret: \t".$client->getSecret(), $this->output);
+            $this->assertContains("Secret: \t" . $client->getSecret(), $this->output);
         }
-        $this->assertContains("UUID: \t\t".$client->getUuid()->toString(), $this->output);
-        $this->assertContains("Description: \t".$client->getDescription(), $this->output);
-        $this->assertContains("Grant types: \t".implode(',', $client->getGrantTypes()), $this->output);
-        $this->assertContains("Redirect URI: \t".$client->getRedirectUri(), $this->output);
+        $this->assertContains("UUID: \t\t" . $client->getUuid()->toString(), $this->output);
+        $this->assertContains("Description: \t" . $client->getDescription(), $this->output);
+        $this->assertContains("Grant types: \t" . implode(',', $client->getGrantTypes()), $this->output);
+        $this->assertContains("Redirect URI: \t" . $client->getRedirectUri(), $this->output);
     }
 
     public function createProvider()
@@ -137,81 +137,81 @@ class ClientControllerTest extends TestCase
         return [
             [
                 [
-                    'public' => null,
-                    'description' => null,
-                    'grant-types' => null,
+                    'public'       => null,
+                    'description'  => null,
+                    'grant-types'  => null,
                     'redirect-uri' => null,
                 ],
                 [
-                    'public' => null,
-                    'description' => null,
-                    'grant-types' => null,
+                    'public'       => null,
+                    'description'  => null,
+                    'grant-types'  => null,
                     'redirect-uri' => null,
                 ],
                 [
-                    'public' => false,
-                    'description' => null,
-                    'grant-types' => null,
+                    'public'       => false,
+                    'description'  => null,
+                    'grant-types'  => null,
                     'redirect-uri' => null,
                 ],
             ],
             [
                 [
-                    'public' => true,
-                    'description' => 'asd',
-                    'grant-types' => 'asd',
+                    'public'       => true,
+                    'description'  => 'asd',
+                    'grant-types'  => 'asd',
                     'redirect-uri' => 'asd',
                 ],
                 [
-                    'public' => null,
-                    'description' => null,
-                    'grant-types' => null,
+                    'public'       => null,
+                    'description'  => null,
+                    'grant-types'  => null,
                     'redirect-uri' => null,
                 ],
                 [
-                    'public' => true,
-                    'description' => 'asd',
-                    'grant-types' => 'asd',
+                    'public'       => true,
+                    'description'  => 'asd',
+                    'grant-types'  => 'asd',
                     'redirect-uri' => 'asd',
                 ],
             ],
             [
                 [
-                    'public' => null,
-                    'description' => null,
-                    'grant-types' => null,
+                    'public'       => null,
+                    'description'  => null,
+                    'grant-types'  => null,
                     'redirect-uri' => null,
                 ],
                 [
-                    'public' => 'y',
-                    'description' => 'asd',
-                    'grant-types' => 'asd',
+                    'public'       => 'y',
+                    'description'  => 'asd',
+                    'grant-types'  => 'asd',
                     'redirect-uri' => 'asd',
                 ],
                 [
-                    'public' => true,
-                    'description' => 'asd',
-                    'grant-types' => 'asd',
+                    'public'       => true,
+                    'description'  => 'asd',
+                    'grant-types'  => 'asd',
                     'redirect-uri' => 'asd',
                 ],
             ],
             [
                 [
-                    'public' => null,
-                    'description' => null,
-                    'grant-types' => null,
+                    'public'       => null,
+                    'description'  => null,
+                    'grant-types'  => null,
                     'redirect-uri' => null,
                 ],
                 [
-                    'public' => false,
-                    'description' => 'asd',
-                    'grant-types' => 'asd',
+                    'public'       => false,
+                    'description'  => 'asd',
+                    'grant-types'  => 'asd',
                     'redirect-uri' => 'asd',
                 ],
                 [
-                    'public' => false,
-                    'description' => 'asd',
-                    'grant-types' => 'asd',
+                    'public'       => false,
+                    'description'  => 'asd',
+                    'grant-types'  => 'asd',
                     'redirect-uri' => 'asd',
                 ],
             ],

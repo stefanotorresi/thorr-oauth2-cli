@@ -9,8 +9,8 @@ namespace Thorr\OAuth2\CLI;
 
 use Thorr\OAuth2\Entity\Client;
 use Thorr\Persistence\DataMapper\DataMapperInterface;
-use Zend\Console\Prompt;
 use Zend\Console\ColorInterface as Color;
+use Zend\Console\Prompt;
 use Zend\Crypt\Password\PasswordInterface;
 use Zend\Math\Rand;
 use Zend\Mvc\Controller\AbstractConsoleController;
@@ -39,7 +39,7 @@ class ClientController extends AbstractConsoleController
     public function __construct(DataMapperInterface $clientMapper, PasswordInterface $password)
     {
         $this->clientMapper = $clientMapper;
-        $this->password = $password;
+        $this->password     = $password;
 
         // store the prompts in a protected array to allow mocking
         $this->prompts = [
@@ -60,11 +60,11 @@ class ClientController extends AbstractConsoleController
         $grantTypes  = $this->params('grant-types') ?: $this->showPrompt('grant-types');
         $redirectUri = $this->params('redirect-uri') ?: $this->showPrompt('redirect-uri');
 
-        $secret = null;
+        $secret          = null;
         $encryptedSecret = null;
 
         if (! $isPublic) {
-            $secret = Rand::getString(32);
+            $secret          = Rand::getString(32);
             $encryptedSecret = $this->password->create($secret);
         }
 
@@ -86,13 +86,13 @@ class ClientController extends AbstractConsoleController
             $this->getConsole()->writeLine("Don't ever disclose the client secret publicly", Color::YELLOW);
             $this->getConsole()->writeLine();
         }
-        $this->getConsole()->writeLine("UUID: \t\t".$client->getUuid());
+        $this->getConsole()->writeLine("UUID: \t\t" . $client->getUuid());
         if (! $isPublic) {
-            $this->getConsole()->writeLine("Secret: \t".$secret);
+            $this->getConsole()->writeLine("Secret: \t" . $secret);
         }
-        $this->getConsole()->writeLine("Grant types: \t".implode(', ', $client->getGrantTypes()));
-        $this->getConsole()->writeLine("Description: \t".$client->getDescription());
-        $this->getConsole()->writeLine("Redirect URI: \t".$client->getRedirectUri());
+        $this->getConsole()->writeLine("Grant types: \t" . implode(', ', $client->getGrantTypes()));
+        $this->getConsole()->writeLine("Description: \t" . $client->getDescription());
+        $this->getConsole()->writeLine("Redirect URI: \t" . $client->getRedirectUri());
     }
 
     /**
@@ -107,7 +107,8 @@ class ClientController extends AbstractConsoleController
     }
 
     /**
-     * @param  string $key
+     * @param string $key
+     *
      * @return mixed
      */
     protected function showPrompt($key)

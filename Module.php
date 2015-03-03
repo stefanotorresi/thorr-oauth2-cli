@@ -30,19 +30,19 @@ class Module implements
                     'routes' => [
                         'client-create' => [
                             'options' => [
-                                'route' => 'oauth2 create client [--public] [--description=] [--grant-types=] [--redirect-uri=]',
+                                'route'    => 'oauth2 create client [--public] [--description=] [--grant-types=] [--redirect-uri=]',
                                 'defaults' => [
                                     'controller' => ClientController::class,
-                                    'action' => 'create',
+                                    'action'     => 'create',
                                 ],
                             ],
                         ],
                         'client-delete' => [
                             'options' => [
-                                'route' => 'oauth2 delete client <uuid>',
+                                'route'    => 'oauth2 delete client <uuid>',
                                 'defaults' => [
                                     'controller' => ClientController::class,
-                                    'action' => 'delete',
+                                    'action'     => 'delete',
                                 ],
                             ],
                         ],
@@ -59,7 +59,7 @@ class Module implements
     {
         return [
             'oauth2 create client [--public] [--description=] [--grant-types=] [--redirect-uri=]' => 'Create a new OAuth2 client',
-            'oauth2 delete client <uuid>' => 'Delete an OAuth2 client',
+            'oauth2 delete client <uuid>'                                                         => 'Delete an OAuth2 client',
         ];
     }
 
@@ -83,7 +83,7 @@ class Module implements
                     $password = new Bcrypt(['cost' => $oauth2Options->getBcryptCost()]);
 
                     return new ClientController($clientMapper, $password);
-                }
+                },
             ],
         ];
     }
