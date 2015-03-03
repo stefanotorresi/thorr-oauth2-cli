@@ -126,7 +126,7 @@ class ClientControllerTest extends TestCase
         if (! $expectedValue['public']) {
             $this->assertContains("Secret: \t" . $client->getSecret(), $this->output);
         }
-        $this->assertContains("UUID: \t\t" . $client->getUuid()->toString(), $this->output);
+        $this->assertContains("UUID: \t\t" . $client->getUuid(), $this->output);
         $this->assertContains("Description: \t" . $client->getDescription(), $this->output);
         $this->assertContains("Grant types: \t" . implode(',', $client->getGrantTypes()), $this->output);
         $this->assertContains("Redirect URI: \t" . $client->getRedirectUri(), $this->output);
