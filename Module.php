@@ -10,7 +10,6 @@ namespace Thorr\OAuth2\CLI;
 use Thorr\OAuth2;
 use Thorr\Persistence\DataMapper\Manager\DataMapperManager;
 use Zend\Console\Adapter\AdapterInterface;
-use Zend\Crypt\Password\Bcrypt;
 use Zend\ModuleManager\Feature;
 use Zend\Mvc\Controller\ControllerManager;
 
@@ -76,11 +75,8 @@ class Module implements
                     /** @var DataMapperManager $dmm */
                     $dmm = $serviceManager->get(DataMapperManager::class);
 
-                    /** @var OAuth2\Options\ModuleOptions $oauth2Options */
-                    $oauth2Options = $serviceManager->get(OAuth2\Options\ModuleOptions::class);
-
                     $clientMapper = $dmm->getDataMapperForEntity(OAuth2\Entity\Client::class);
-                    $password = new Bcrypt(['cost' => $oauth2Options->getBcryptCost()]);
+                    $password = $serviceManager->get(OAuth2\Module::DEFAULT_PASSWORD_SERVICE);
 
                     return new ClientController($clientMapper, $password);
                 },
