@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": "~5.5",
-        "stefanotorresi/thorr-oauth2": "~1.0@beta",
+        "stefanotorresi/thorr-oauth2": "~2.0",
         "zendframework/zend-console": "~2.3",
         "zendframework/zend-mvc": "~2.3",
         "zendframework/zend-modulemanager": "~2.3"
