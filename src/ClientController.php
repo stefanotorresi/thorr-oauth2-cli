@@ -80,9 +80,9 @@ class ClientController extends AbstractConsoleController
         $this->clientMapper->save($client);
 
         $this->getConsole()->writeLine();
-        $this->getConsole()->writeLine("* Client created *", Color::GREEN);
+        $this->getConsole()->writeLine('* Client created *', Color::GREEN);
         if (! $isPublic) {
-            $this->getConsole()->writeLine("The client secret was auto-generated and encrypted. Please store it safely.");
+            $this->getConsole()->writeLine('The client secret was auto-generated and encrypted. Please store it safely.');
             $this->getConsole()->writeLine("Don't ever disclose the client secret publicly", Color::YELLOW);
             $this->getConsole()->writeLine();
         }
@@ -103,7 +103,7 @@ class ClientController extends AbstractConsoleController
         $this->clientMapper->removeByUuid($this->params('uuid'));
 
         $this->getConsole()->writeLine();
-        $this->getConsole()->writeLine("* Client removed *", Color::GREEN);
+        $this->getConsole()->writeLine('* Client removed *', Color::GREEN);
     }
 
     /**
